@@ -3,7 +3,6 @@ package ru.job4j.dreamjob.repository;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.Candidate;
-import ru.job4j.dreamjob.model.Vacancy;
 
 import java.util.Collection;
 import java.util.HashMap;
