@@ -16,7 +16,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class MemoryVacancyRepository implements VacancyRepository {
 
     private final AtomicInteger nextId = new AtomicInteger(1);
-
     private final Map<Integer, Vacancy> vacancies = new HashMap<>();
 
     private MemoryVacancyRepository() {
