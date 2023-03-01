@@ -19,12 +19,12 @@ public class MemoryVacancyRepository implements VacancyRepository {
     private final Map<Integer, Vacancy> vacancies = new HashMap<>();
 
     private MemoryVacancyRepository() {
-        save(new Vacancy(0, "Intern Java Developer", "Just learn", LocalDateTime.now(), true, 1));
-        save(new Vacancy(0, "Junior Java Developer", "Knew some things", LocalDateTime.now(), true, 1));
-        save(new Vacancy(0, "Junior+ Java Developer", "Knew basic things", LocalDateTime.now(), true, 2));
-        save(new Vacancy(0, "Middle Java Developer", "Knew basic things and algorithms", LocalDateTime.now(), true, 2));
-        save(new Vacancy(0, "Middle+ Java Developer", "Knew advanced things", LocalDateTime.now(), true, 3));
-        save(new Vacancy(0, "Senior Java Developer", "Knew advanced things and architecture", LocalDateTime.now(), true, 3));
+        save(new Vacancy(0, "Intern Java Developer", "Just learn", LocalDateTime.now(), true, 1, 0));
+        save(new Vacancy(0, "Junior Java Developer", "Knew some things", LocalDateTime.now(), true, 1, 0));
+        save(new Vacancy(0, "Junior+ Java Developer", "Knew basic things", LocalDateTime.now(), true, 2, 0));
+        save(new Vacancy(0, "Middle Java Developer", "Knew basic things and algorithms", LocalDateTime.now(), true, 2, 0));
+        save(new Vacancy(0, "Middle+ Java Developer", "Knew advanced things", LocalDateTime.now(), true, 3, 0));
+        save(new Vacancy(0, "Senior Java Developer", "Knew advanced things and architecture", LocalDateTime.now(), true, 3, 0));
     }
 
     @Override
@@ -43,7 +43,7 @@ public class MemoryVacancyRepository implements VacancyRepository {
     public boolean update(Vacancy vacancy) {
         return vacancies.computeIfPresent(vacancy.getId(), (id, oldVacancy) -> {
             return new Vacancy(oldVacancy.getId(), vacancy.getTitle(), vacancy.getDescription(),
-                    vacancy.getCreationDate(), vacancy.getVisible(), vacancy.getCityId());
+                    vacancy.getCreationDate(), vacancy.getVisible(), vacancy.getCityId(), vacancy.getFileId());
         }) != null;
     }
 

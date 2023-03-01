@@ -9,21 +9,29 @@ public class Vacancy {
     private String title;
     private String description;
     private LocalDateTime creationDate = LocalDateTime.now();
-
     private boolean visible;
-
     private int cityId;
+    private int fileId;
 
     public Vacancy() {
     }
 
-    public Vacancy(int id, String title, String description, LocalDateTime creationDate, boolean visible, int cityId) {
+    public Vacancy(int id, String title, String description, LocalDateTime creationDate, boolean visible, int cityId, int fileId) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.creationDate = creationDate;
         this.visible = visible;
         this.cityId = cityId;
+        this.fileId = fileId;
+    }
+
+    public int getFileId() {
+        return fileId;
+    }
+
+    public void setFileId(int fileId) {
+        this.fileId = fileId;
     }
 
     public int getCityId() {
