@@ -19,7 +19,7 @@ public class Sql2oCandidateRepository implements CandidateRepository {
         try (var connection = sql2o.open()) {
             var sql = """
                       INSERT INTO candidates(name, description, creation_date, city_id, file_id)
-                      VALUES (:title, :description, :creationDate, :cityId, :fileId)
+                      VALUES (:name, :description, :creationDate, :cityId, :fileId)
                       """;
             var query = connection.createQuery(sql, true)
                     .addParameter("name", candidate.getName())
