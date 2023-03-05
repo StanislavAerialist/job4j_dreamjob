@@ -1,6 +1,7 @@
 package ru.job4j.dreamjob.repository;
 
 import org.springframework.stereotype.Repository;
+import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import ru.job4j.dreamjob.model.User;
 
@@ -27,9 +28,14 @@ public class Sql2oUserRepository implements UserRepository {
                     .addParameter("email", user.getEmail())
                     .addParameter("name", user.getName())
                     .addParameter("password", user.getPassword());
-            int generatedId = query.executeUpdate().getKey(Integer.class);
-            user.setId(generatedId);
-            return Optional.ofNullable(user);
+            Connection generatedId;
+            try {
+                generatedId = query.executeUpdate();
+                user.setId(generatedId.getKey(Integer.class));
+            } catch (IllegalArgumentException e) {
+                return Optional.empty();
+            }
+            return Optional.of(user);
         }
     }
 
