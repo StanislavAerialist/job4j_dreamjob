@@ -1,5 +1,7 @@
 package ru.job4j.dreamjob.repository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
@@ -11,6 +13,8 @@ import java.util.Optional;
 @Repository
 public class Sql2oUserRepository implements UserRepository {
 
+    private static final Logger LOG = LoggerFactory.getLogger(Sql2oUserRepository.class.getName());
+
     private final Sql2o sql2o;
 
     public Sql2oUserRepository(Sql2o sql2o) {
@@ -19,6 +23,7 @@ public class Sql2oUserRepository implements UserRepository {
 
     @Override
     public Optional<User> save(User user) {
+        Optional<User> rsl = Optional.empty();
         try (var connection = sql2o.open()) {
             var sql = """
                       INSERT INTO users(email, name, password)
@@ -32,10 +37,11 @@ public class Sql2oUserRepository implements UserRepository {
             try {
                 generatedId = query.executeUpdate();
                 user.setId(generatedId.getKey(Integer.class));
+                rsl = Optional.of(user);
             } catch (IllegalArgumentException e) {
-                return Optional.empty();
+                LOG.error("Exception when save user", e);
             }
-            return Optional.of(user);
+            return rsl;
         }
     }
 
